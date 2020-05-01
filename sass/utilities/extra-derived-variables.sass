@@ -1,0 +1,29 @@
+@use "initial-variables"
+@use "derived-variables"
+@use "derived-functions"
+
+// Light & Dark colors
+
+$primary-light: derived-functions.findLightColor(derived-variables.$primary) !default
+$primary-dark: derived-functions.findDarkColor(derived-variables.$primary) !default
+$info-light: derived-functions.findLightColor(derived-variables.$info) !default
+$info-dark: derived-functions.findDarkColor(derived-variables.$info) !default
+$success-light: derived-functions.findLightColor(derived-variables.$success) !default
+$success-dark: derived-functions.findDarkColor(derived-variables.$success) !default
+$warning-light: derived-functions.findLightColor(derived-variables.$warning) !default
+$warning-dark: derived-functions.findDarkColor(derived-variables.$warning) !default
+$danger-light: derived-functions.findLightColor(derived-variables.$danger) !default
+$danger-dark: derived-functions.findDarkColor(derived-variables.$danger) !default
+
+
+// Link colors
+
+$link-light: derived-functions.findLightColor(derived-variables.$link) !default
+$link-dark: derived-functions.findDarkColor(derived-variables.$link) !default
+
+// Lists and maps
+$custom-colors: null !default
+$custom-shades: null !default
+
+$colors: derived-functions.mergeColorMaps(("white": (initial-variables.$white, initial-variables.$black), "black": (initial-variables.$black, initial-variables.$white), "light": (derived-variables.$light, derived-variables.$light-invert), "dark": (derived-variables.$dark, derived-variables.$dark-invert), "primary": (derived-variables.$primary, derived-variables.$primary-invert, $primary-light, $primary-dark), "link": (derived-variables.$link, derived-variables.$link-invert, $link-light, $link-dark), "info": (derived-variables.$info, derived-variables.$info-invert, $info-light, $info-dark), "success": (derived-variables.$success, derived-variables.$success-invert, $success-light, $success-dark), "warning": (derived-variables.$warning, derived-variables.$warning-invert, $warning-light, $warning-dark), "danger": (derived-variables.$danger, derived-variables.$danger-invert, $danger-light, $danger-dark)), $custom-colors) !default
+$shades: derived-functions.mergeColorMaps(("black-bis": initial-variables.$black-bis, "black-ter": initial-variables.$black-ter, "grey-darker": initial-variables.$grey-darker, "grey-dark": initial-variables.$grey-dark, "grey": initial-variables.$grey, "grey-light": initial-variables.$grey-light, "grey-lighter": initial-variables.$grey-lighter, "white-ter": initial-variables.$white-ter, "white-bis": initial-variables.$white-bis), $custom-shades) !default
