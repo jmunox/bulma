@@ -1,48 +1,57 @@
-$button-color: $text-strong !default
-$button-background-color: $scheme-main !default
+@use "sass:list"
+@use "bulma/sass/utilities/initial-variables"
+@use "bulma/sass/utilities/functions"
+@use "bulma/sass/utilities/derived-variables"
+@use "bulma/sass/utilities/extra-derived-variables"
+@use "bulma/sass/utilities/mixins"
+@use "bulma/sass/utilities/controls"
+
+
+$button-color: derived-variables.$text-strong !default
+$button-background-color: derived-variables.$scheme-main !default
 $button-family: false !default
 
-$button-border-color: $border !default
-$button-border-width: $control-border-width !default
+$button-border-color: derived-variables.$border !default
+$button-border-width: controls.$control-border-width !default
 
 $button-padding-vertical: calc(0.5em - #{$button-border-width}) !default
 $button-padding-horizontal: 1em !default
 
-$button-hover-color: $link-hover !default
-$button-hover-border-color: $link-hover-border !default
+$button-hover-color: derived-variables.$link-hover !default
+$button-hover-border-color: derived-variables.$link-hover-border !default
 
-$button-focus-color: $link-focus !default
-$button-focus-border-color: $link-focus-border !default
+$button-focus-color: derived-variables.$link-focus !default
+$button-focus-border-color: derived-variables.$link-focus-border !default
 $button-focus-box-shadow-size: 0 0 0 0.125em !default
-$button-focus-box-shadow-color: bulmaRgba($link, 0.25) !default
+$button-focus-box-shadow-color: functions.bulmaRgba(derived-variables.$link, 0.25) !default
 
-$button-active-color: $link-active !default
-$button-active-border-color: $link-active-border !default
+$button-active-color: derived-variables.$link-active !default
+$button-active-border-color: derived-variables.$link-active-border !default
 
-$button-text-color: $text !default
+$button-text-color: derived-variables.$text !default
 $button-text-decoration: underline !default
-$button-text-hover-background-color: $background !default
-$button-text-hover-color: $text-strong !default
+$button-text-hover-background-color: derived-variables.$background !default
+$button-text-hover-color: derived-variables.$text-strong !default
 
-$button-disabled-background-color: $scheme-main !default
-$button-disabled-border-color: $border !default
+$button-disabled-background-color: derived-variables.$scheme-main !default
+$button-disabled-border-color: derived-variables.$border !default
 $button-disabled-shadow: none !default
 $button-disabled-opacity: 0.5 !default
 
-$button-static-color: $text-light !default
-$button-static-background-color: $scheme-main-ter !default
-$button-static-border-color: $border !default
+$button-static-color: derived-variables.$text-light !default
+$button-static-background-color: derived-variables.$scheme-main-ter !default
+$button-static-border-color: derived-variables.$border !default
 
 // The button sizes use mixins so they can be used at different breakpoints
 =button-small
-  border-radius: $radius-small
-  font-size: $size-small
+  border-radius: initial-variables.$radius-small
+  font-size: derived-variables.$size-small
 =button-normal
-  font-size: $size-normal
+  font-size: derived-variables.$size-normal
 =button-medium
-  font-size: $size-medium
+  font-size: derived-variables.$size-medium
 =button-large
-  font-size: $size-large
+  font-size: derived-variables.$size-large
 
 .button
   @extend %control
@@ -108,23 +117,23 @@ $button-static-border-color: $border !default
       color: $button-text-hover-color
     &:active,
     &.is-active
-      background-color: bulmaDarken($button-text-hover-background-color, 5%)
+      background-color: functions.bulmaDarken($button-text-hover-background-color, 5%)
       color: $button-text-hover-color
     &[disabled],
     fieldset[disabled] &
       background-color: transparent
       border-color: transparent
       box-shadow: none
-  @each $name, $pair in $colors
-    $color: nth($pair, 1)
-    $color-invert: nth($pair, 2)
+  @each $name, $pair in extra-derived-variables.$colors
+    $color: list.nth($pair, 1)
+    $color-invert: list.nth($pair, 2)
     &.is-#{$name}
       background-color: $color
       border-color: transparent
       color: $color-invert
       &:hover,
       &.is-hovered
-        background-color: bulmaDarken($color, 2.5%)
+        background-color: functions.bulmaDarken($color, 2.5%)
         border-color: transparent
         color: $color-invert
       &:focus,
@@ -132,10 +141,10 @@ $button-static-border-color: $border !default
         border-color: transparent
         color: $color-invert
         &:not(:active)
-          box-shadow: $button-focus-box-shadow-size bulmaRgba($color, 0.25)
+          box-shadow: $button-focus-box-shadow-size functions.bulmaRgba($color, 0.25)
       &:active,
       &.is-active
-        background-color: bulmaDarken($color, 5%)
+        background-color: functions.bulmaDarken($color, 5%)
         border-color: transparent
         color: $color-invert
       &[disabled],
@@ -148,7 +157,7 @@ $button-static-border-color: $border !default
         color: $color
         &:hover,
         &.is-hovered
-          background-color: bulmaDarken($color-invert, 5%)
+          background-color: functions.bulmaDarken($color-invert, 5%)
         &[disabled],
         fieldset[disabled] &
           background-color: $color-invert
@@ -208,20 +217,20 @@ $button-static-border-color: $border !default
           box-shadow: none
           color: $color-invert
       // If light and dark colors are provided
-      @if length($pair) >= 4
-        $color-light: nth($pair, 3)
-        $color-dark: nth($pair, 4)
+      @if list.length($pair) >= 4
+        $color-light: list.nth($pair, 3)
+        $color-dark: list.nth($pair, 4)
         &.is-light
           background-color: $color-light
           color: $color-dark
           &:hover,
           &.is-hovered
-            background-color: bulmaDarken($color-light, 2.5%)
+            background-color: functions.bulmaDarken($color-light, 2.5%)
             border-color: transparent
             color: $color-dark
           &:active,
           &.is-active
-            background-color: bulmaDarken($color-light, 5%)
+            background-color: functions.bulmaDarken($color-light, 5%)
             border-color: transparent
             color: $color-dark
   // Sizes
@@ -248,7 +257,7 @@ $button-static-border-color: $border !default
     pointer-events: none
     &::after
       @extend %loader
-      +center(1em)
+      +mixins.center(1em)
       position: absolute !important
   &.is-static
     background-color: $button-static-background-color
@@ -257,7 +266,7 @@ $button-static-border-color: $border !default
     box-shadow: none
     pointer-events: none
   &.is-rounded
-    border-radius: $radius-rounded
+    border-radius: initial-variables.$radius-rounded
     padding-left: calc(#{$button-padding-horizontal} + 0.25em)
     padding-right: calc(#{$button-padding-horizontal} + 0.25em)
 
