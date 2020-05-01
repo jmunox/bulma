@@ -1,7 +1,16 @@
+@use "sass:list"
+@use "generic"
+
+@use "bulma/sass/utilities/initial-variables"
+@use "bulma/sass/utilities/functions"
+@use "bulma/sass/utilities/derived-variables"
+@use "bulma/sass/utilities/extra-derived-variables"
+@use "bulma/sass/utilities/mixins"
+
 // Float
 
 .is-clearfix
-  +clearfix
+  +mixins.clearfix
 
 .is-pulled-left
   float: left !important
@@ -22,29 +31,29 @@
 // Typography
 
 =typography-size($target:'')
-  @each $size in $sizes
-    $i: index($sizes, $size)
+  @each $size in derived-variables.$sizes
+    $i: list.index(derived-variables.$sizes, $size)
     .is-size-#{$i}#{if($target == '', '', '-' + $target)}
       font-size: $size !important
 
 +typography-size()
 
-+mobile
++mixins.mobile
   +typography-size('mobile')
 
-+tablet
++mixins.tablet
   +typography-size('tablet')
 
-+touch
++mixins.touch
   +typography-size('touch')
 
-+desktop
++mixins.desktop
   +typography-size('desktop')
 
-+widescreen
++mixins.widescreen
   +typography-size('widescreen')
 
-+fullhd
++mixins.fullhd
   +typography-size('fullhd')
 
 $alignments: ('centered': 'center', 'justified': 'justify', 'left': 'left', 'right': 'right')
@@ -54,31 +63,31 @@ $alignments: ('centered': 'center', 'justified': 'justify', 'left': 'left', 'rig
     text-align: #{$text-align} !important
 
 @each $alignment, $text-align in $alignments
-  +mobile
+  +mixins.mobile
     .has-text-#{$alignment}-mobile
       text-align: #{$text-align} !important
-  +tablet
+  +mixins.tablet
     .has-text-#{$alignment}-tablet
       text-align: #{$text-align} !important
-  +tablet-only
+  +mixins.tablet-only
     .has-text-#{$alignment}-tablet-only
       text-align: #{$text-align} !important
-  +touch
+  +mixins.touch
     .has-text-#{$alignment}-touch
       text-align: #{$text-align} !important
-  +desktop
+  +mixins.desktop
     .has-text-#{$alignment}-desktop
       text-align: #{$text-align} !important
-  +desktop-only
+  +mixins.desktop-only
     .has-text-#{$alignment}-desktop-only
       text-align: #{$text-align} !important
-  +widescreen
+  +mixins.widescreen
     .has-text-#{$alignment}-widescreen
       text-align: #{$text-align} !important
-  +widescreen-only
+  +mixins.widescreen-only
     .has-text-#{$alignment}-widescreen-only
       text-align: #{$text-align} !important
-  +fullhd
+  +mixins.fullhd
     .has-text-#{$alignment}-fullhd
       text-align: #{$text-align} !important
 
@@ -94,48 +103,48 @@ $alignments: ('centered': 'center', 'justified': 'justify', 'left': 'left', 'rig
 .is-italic
   font-style: italic !important
 
-@each $name, $pair in $colors
-  $color: nth($pair, 1)
+@each $name, $pair in extra-derived-variables.$colors
+  $color: list.nth($pair, 1)
   .has-text-#{$name}
     color: $color !important
   a.has-text-#{$name}
     &:hover,
     &:focus
-      color: bulmaDarken($color, 10%) !important
+      color: functions.bulmaDarken($color, 10%) !important
   .has-background-#{$name}
     background-color: $color !important
 
-@each $name, $shade in $shades
+@each $name, $shade in extra-derived-variables.$shades
   .has-text-#{$name}
     color: $shade !important
   .has-background-#{$name}
     background-color: $shade !important
 
 .has-text-weight-light
-  font-weight: $weight-light !important
+  font-weight: initial-variables.$weight-light !important
 .has-text-weight-normal
-  font-weight: $weight-normal !important
+  font-weight: initial-variables.$weight-normal !important
 .has-text-weight-medium
-  font-weight: $weight-medium !important
+  font-weight: initial-variables.$weight-medium !important
 .has-text-weight-semibold
-  font-weight: $weight-semibold !important
+  font-weight: initial-variables.$weight-semibold !important
 .has-text-weight-bold
-  font-weight: $weight-bold !important
+  font-weight: initial-variables.$weight-bold !important
 
 .is-family-primary
-  font-family: $family-primary !important
+  font-family: derived-variables.$family-primary !important
 
 .is-family-secondary
-  font-family: $family-secondary !important
+  font-family: derived-variables.$family-secondary !important
 
 .is-family-sans-serif
-  font-family: $family-sans-serif !important
+  font-family: initial-variables.$family-sans-serif !important
 
 .is-family-monospace
-  font-family: $family-monospace !important
+  font-family: initial-variables.$family-monospace !important
 
 .is-family-code
-  font-family: $family-code !important
+  font-family: derived-variables.$family-code !important
 
 // Visibility
 
@@ -144,31 +153,31 @@ $displays: 'block' 'flex' 'inline' 'inline-block' 'inline-flex'
 @each $display in $displays
   .is-#{$display}
     display: #{$display} !important
-  +mobile
+  +mixins.mobile
     .is-#{$display}-mobile
       display: #{$display} !important
-  +tablet
+  +mixins.tablet
     .is-#{$display}-tablet
       display: #{$display} !important
-  +tablet-only
+  +mixins.tablet-only
     .is-#{$display}-tablet-only
       display: #{$display} !important
-  +touch
+  +mixins.touch
     .is-#{$display}-touch
       display: #{$display} !important
-  +desktop
+  +mixins.desktop
     .is-#{$display}-desktop
       display: #{$display} !important
-  +desktop-only
+  +mixins.desktop-only
     .is-#{$display}-desktop-only
       display: #{$display} !important
-  +widescreen
+  +mixins.widescreen
     .is-#{$display}-widescreen
       display: #{$display} !important
-  +widescreen-only
+  +mixins.widescreen-only
     .is-#{$display}-widescreen-only
       display: #{$display} !important
-  +fullhd
+  +mixins.fullhd
     .is-#{$display}-fullhd
       display: #{$display} !important
 
@@ -185,78 +194,78 @@ $displays: 'block' 'flex' 'inline' 'inline-block' 'inline-flex'
   white-space: nowrap !important
   width: 0.01em !important
 
-+mobile
++mixins.mobile
   .is-hidden-mobile
     display: none !important
 
-+tablet
++mixins.tablet
   .is-hidden-tablet
     display: none !important
 
-+tablet-only
++mixins.tablet-only
   .is-hidden-tablet-only
     display: none !important
 
-+touch
++mixins.touch
   .is-hidden-touch
     display: none !important
 
-+desktop
++mixins.desktop
   .is-hidden-desktop
     display: none !important
 
-+desktop-only
++mixins.desktop-only
   .is-hidden-desktop-only
     display: none !important
 
-+widescreen
++mixins.widescreen
   .is-hidden-widescreen
     display: none !important
 
-+widescreen-only
++mixins.widescreen-only
   .is-hidden-widescreen-only
     display: none !important
 
-+fullhd
++mixins.fullhd
   .is-hidden-fullhd
     display: none !important
 
 .is-invisible
   visibility: hidden !important
 
-+mobile
++mixins.mobile
   .is-invisible-mobile
     visibility: hidden !important
 
-+tablet
++mixins.tablet
   .is-invisible-tablet
     visibility: hidden !important
 
-+tablet-only
++mixins.tablet-only
   .is-invisible-tablet-only
     visibility: hidden !important
 
-+touch
++mixins.touch
   .is-invisible-touch
     visibility: hidden !important
 
-+desktop
++mixins.desktop
   .is-invisible-desktop
     visibility: hidden !important
 
-+desktop-only
++mixins.desktop-only
   .is-invisible-desktop-only
     visibility: hidden !important
 
-+widescreen
++mixins.widescreen
   .is-invisible-widescreen
     visibility: hidden !important
 
-+widescreen-only
++mixins.widescreen-only
   .is-invisible-widescreen-only
     visibility: hidden !important
 
-+fullhd
++mixins.fullhd
   .is-invisible-fullhd
     visibility: hidden !important
 
